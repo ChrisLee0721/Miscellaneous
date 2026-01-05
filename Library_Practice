@@ -1,0 +1,60 @@
+class Book:  
+    def __init__(self,title,author,isbn):  
+        self.title = title  
+        self.author = author  
+        self.isbn = isbn  
+        self.is_borrowed = False  
+    def __str__(self) -> str:  
+        return f"《{self.title}》"  
+    def get_detailed(self):  
+        if not self.is_borrowed:  
+            print(f"书名：{self.title},作者：{self.author},ISBN：{self.isbn},借出状态：未借出")  
+        else:  
+            print(f"书名：{self.title},作者：{self.author},ISBN：{self.isbn},借出状态：已借出")  
+    def borrow(self):  
+        if not self.is_borrowed:  
+            self.is_borrowed = True  
+            print(f"'{self.title}'借阅成功")  
+        else:  
+            print(f"借阅失败'{self.title}' 已经被借走了")  
+    def return_back(self):  
+        if self.is_borrowed:  
+            self.is_borrowed = False  
+            print(f"'{self.title}'还书成功.")  
+        else:  
+            print(f"'{self.title}'已归还，无需还书.")  
+class Library:  
+    def __init__(self,name):  
+        self.name = name  
+        self.books = []  
+    def add_book(self, book_instance):  
+        self.books.append(book_instance)  
+        print(f"成功在{self.name}添加'{book_instance}' 成功添加至图书馆内")  
+    def list_books(self):  
+        print(f"{self.name}图书馆藏书列表:")  
+        for book in self.books:  
+            book.get_detailed()  
+    def search_books(self, keyword):  
+        results = [book for book in self.books if keyword.lower() in book.title.lower()]  
+        if results:  
+            print(f"包含关键字 '{keyword}' 的结果如下：")  
+            for b in results:  
+                b.get_detailed()  
+        else:  
+            print(f"未找到包含 '{keyword}' 的书籍。")  
+book1 = Book("<货物>", "<威威>", "3333")  
+book2 = Book("<人类>", "<天天>", "3333")  
+book3 = Book("<语言>", "<信息>", "3333")  
+library = Library("why图书馆")  
+book1.get_detailed()  
+library.add_book(book1)  
+library.add_book(book2)  
+library.add_book(book3)  
+library.list_books()  
+library.search_books("人类")  
+book1.borrow()  
+book1.borrow()  
+book1.get_detailed()  
+book1.return_back()  
+book1.return_back()  
+book1.get_detailed()
