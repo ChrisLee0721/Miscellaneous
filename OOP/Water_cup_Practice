@@ -1,0 +1,68 @@
+import random
+class WaterCup:
+    def __init__(self,name,water,maxsize):
+        self.name =name
+        self.maxsize = maxsize
+        self.water = water
+        self.addwater = water
+        self.drink_water = 0
+        self.take = False
+        self.luck = random.randint(4, 100)
+        self.brea = False
+    def watercup_name(self):
+        print(self.name)
+    def take_watercup(self):
+        self.take = True
+        if self.brea:
+            print(f"你拿起了水杯碎片")
+            if self.luck < 20:
+                print(f"你割伤了手！")
+        else:
+            print(f"你拿起了水杯")
+    def takedown_watercup(self):
+        self.take = False
+        if self.luck > 50:
+            print(f"你放下了水杯")
+        else:
+            self.brea = True
+            print(f"水杯碎了！")
+            self.maxsize = 2
+    def drink(self):
+        if self.water > 0 and self.take and not self.brea:
+            self.drink_water = random.randint(4, self.water)
+            self.water = self.water-self.drink_water
+            print(f"使用{self.name}喝了{self.drink_water}升的水，现在还有{self.water}升的水")
+        elif not self.take and not self.brea:
+            print("先拿起杯子！")
+        elif not self.brea:
+            print("没水了！")
+        else:
+            print("你试图用玻璃碎片喝水，你死于内出血")
+    def add(self,):
+            self.addwater = random.randint(1, 200)
+            self.water += self.addwater
+            if self.water > self.maxsize and not self.brea:
+                print(f"水溢出来了！")
+            elif self.water < self.maxsize and self.brea:
+                print(f"现在有{self.water}的水")
+            elif not self.take:
+                print("先拿起杯子！")
+            elif self.take and not self.brea:
+                if self.luck < 20:
+                  print(f"你割伤了手！")
+watercup1=WaterCup("My Watercup",10,100)
+while True:
+    command = input("请输入: ")
+    def match_example(command):
+        match command:
+            case "1":
+                watercup1.watercup_name()
+            case "2":
+                watercup1.take_watercup()
+            case "3":
+                watercup1.takedown_watercup()
+            case "4":
+                watercup1.add()
+            case "5":
+                watercup1.drink()
+    match_example(command)
